@@ -28,6 +28,9 @@ NeoBundle 'Shougo/vimproc.vim', {
       \     'unix' : 'make -f make_unix.mak',
       \    },
       \ }
+"openbrowser.vim is now for only previm
+NeoBundle 'kannokanno/previm'
+NeoBundle 'tyru/open-browser.vim'
 
 filetype plugin on
 NeoBundleCheck
