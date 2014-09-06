@@ -84,6 +84,8 @@ autocmd BufNewFile,BufRead *.{md,mkd,mdn,mdwn,mkdn,mark*} set filetype=markdown
 "オレオレマッピング
 command! EditVimrc :edit ~/.vimrc
 nmap evv :EditVimrc<CR>
+command! Markdown :QuickRun markdown
+nmap md :Markdown<CR>
 command! Memo edit ~/Dropbox/memo/memo.txt
 command! -nargs=1 -complete=filetype Tmp edit ~/.vim_tmp/tmp.<args>
 command! -nargs=1 -complete=filetype Temp edit ~/.vim_tmp/tmp.<args>
