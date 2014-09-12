@@ -1,11 +1,2 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =9
-let g:netrw_dirhist_1='/home/miyako-u/Dropbox/Ubuntu/RepoDotfiles/.vim'
-let g:netrw_dirhist_2='/home/miyako-u/.vim'
-let g:netrw_dirhist_3='/home/miyako-u'
-let g:netrw_dirhist_4='/home/miyako-u/Dropbox'
-let g:netrw_dirhist_5='/home/miyako-u/Dropbox/Ubuntu'
-let g:netrw_dirhist_6='/home/miyako-u/.vimperator'
-let g:netrw_dirhist_7='/home/miyako-u'
-let g:netrw_dirhist_8='/home/miyako-u/.vimperator'
-let g:netrw_dirhist_9='/home/miyako-u'
+let g:netrw_dirhist_cnt =0

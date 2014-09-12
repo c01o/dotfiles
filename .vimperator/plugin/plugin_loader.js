@@ -1,0 +1,1 @@
+/home/miyako-u/.vimperator/vimperator-plugins/plugin_loader.js
