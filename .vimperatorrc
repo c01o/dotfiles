@@ -5,7 +5,12 @@ command clip javascript evernote_doAction()
 set focuscontent
 
 " IME control in command mode?
-style! -name=commandline-ime chrome://* #liberator-commandline-command input {ime-mode: inactive;}
+noremap <silent> f :!fcitx-remote -c<cr>qf
+noremap <silent> F :!fcitx-remote -c<cr>qF
+noremap <silent> t :!fcitx-remote -c<cr>qt
+noremap <silent> T :!fcitx-remote -c<cr>qT
+noremap <silent> o :!fcitx-remote -c<cr>qo
+noremap <silent> O :!fcitx-remote -c<cr>qO
 
 noremap j 3j
 noremap k 3k

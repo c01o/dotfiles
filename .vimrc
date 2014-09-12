@@ -14,6 +14,7 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 " add plugin
 NeoBundle 'vim-jp/vimdoc-ja'
 NeoBundle 'Townk/vim-autoclose'
+NeoBundle 'tyru/caw.vim'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'fuenor/im_control.vim'
 NeoBundle 'rhysd/migemo-search.vim'
@@ -31,6 +32,7 @@ NeoBundle 'Shougo/vimproc.vim', {
 "openbrowser.vim is now for only previm
 NeoBundle 'kannokanno/previm'
 NeoBundle 'tyru/open-browser.vim'
+
 
 filetype plugin on
 NeoBundleCheck
@@ -54,10 +56,7 @@ endfunction
 
 "############
 
-" migemo-search.vim有効化
-if executable('cmigemo')
-	cnoremap <expr><CR> migemosearch#replace_search_word()."\<CR>"
-endif
+
 
 
 
@@ -83,8 +82,20 @@ set wildmode=list,full
 
 "markdownファイル読み込み  
 autocmd BufNewFile,BufRead *.{md,mkd,mdn,mdwn,mkdn,mark*} set filetype=markdown  
+".vimperatorrcを.vimrc扱いでシンタックスハイライト
+autocmd BufNewFile,BufRead *.vimperatorrc set filetype=vim
 
-"オレオレマッピング
+" クリップボード連携
+set clipboard=unnamed,autoselect
+
+" \cで行の先頭にコメントをつけたり外したりできる
+nmap <Leader>c <Plug>(caw:i:toggle)
+vmap <Leader>c <Plug>(caw:i:toggle)
+
+
+"###############################
+"########俺マッピング###########
+"###############################
 command! EditVimrc :edit ~/.vimrc
 nmap evv :EditVimrc<CR>
 command! Markdown :QuickRun markdown
@@ -102,9 +113,6 @@ nnoremap <C-n> gt
 "foolproof
 nnoremap ZQ <Nop>
 
-" クリップボード連携
-set clipboard=unnamed,autoselect
-
 "###############################
 "###########検索設定############
 "###############################
@@ -117,4 +125,7 @@ nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>
 "検索をループさせる
 set wrapscan
 
-
+" migemo-search.vim有効化
+if executable('cmigemo')
+	cnoremap <expr><CR> migemosearch#replace_search_word()."\<CR>"
+endif
