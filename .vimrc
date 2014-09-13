@@ -98,9 +98,15 @@ vmap <Leader>c <Plug>(caw:i:toggle)
 "###############################
 command! EditVimrc :edit ~/.vimrc
 nmap evv :EditVimrc<CR>
+
+nmap qr :QuickRun ruby
+
 command! Markdown :QuickRun markdown
-nmap md :Markdown<CR>
+nmap md :Markdown<CR>	"oldstyle markdown shortcut
+nmap qm :Markdown<CR>	"unify Quickrun-shortcuts "qX"
+
 command! Memo edit ~/Dropbox/memo/memo.txt
+nmap mm :Memo<CR>
 command! -nargs=1 -complete=filetype Tmp edit ~/.vim_tmp/tmp.<args>
 command! -nargs=1 -complete=filetype Temp edit ~/.vim_tmp/tmp.<args>
 
