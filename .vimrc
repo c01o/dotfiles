@@ -30,7 +30,7 @@ NeoBundle 'Shougo/vimproc.vim', {
       \    },
       \ }
 "openbrowser.vim is now for only previm
-NeoBundle 'kannokanno/previm'
+NeoBundle 'kannokanno/previm' " :PrevimOpen only works in filetype=markdown
 NeoBundle 'tyru/open-browser.vim'
 
 
@@ -105,7 +105,7 @@ command! Markdown :QuickRun markdown
 nmap md :Markdown<CR>	"oldstyle markdown shortcut
 nmap qm :Markdown<CR>	"unify Quickrun-shortcuts "qX"
 
-command! Memo edit ~/Dropbox/memo/memo.txt
+command! Memo edit ~/Dropbox/memo/memo.md
 nmap mm :Memo<CR>
 command! -nargs=1 -complete=filetype Tmp edit ~/.vim_tmp/tmp.<args>
 command! -nargs=1 -complete=filetype Temp edit ~/.vim_tmp/tmp.<args>
