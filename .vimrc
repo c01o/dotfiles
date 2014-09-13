@@ -33,7 +33,6 @@ NeoBundle 'Shougo/vimproc.vim', {
 NeoBundle 'kannokanno/previm' " :PrevimOpen only works in filetype=markdown
 NeoBundle 'tyru/open-browser.vim'
 
-
 filetype plugin on
 NeoBundleCheck
 
@@ -80,10 +79,11 @@ set laststatus=2
 ":edit等の補完
 set wildmode=list,full
 
-"markdownファイル読み込み  
-autocmd BufNewFile,BufRead *.{md,mkd,mdn,mdwn,mkdn,mark*} set filetype=markdown  
-".vimperatorrcを.vimrc扱いでシンタックスハイライト
-autocmd BufNewFile,BufRead *.vimperatorrc set filetype=vimperator
+augroup MyAutoCmd 
+	autocmd! 
+	autocmd BufNewFile,BufRead *.{md,mkd,mdn,mdwn,mkdn,mark*} set filetype=markdown  
+	autocmd BufNewFile,BufRead *.vimperatorrc set filetype=vimperator
+augroup
 
 " クリップボード連携
 set clipboard=unnamed,autoselect
@@ -97,18 +97,20 @@ vmap <Leader>c <Plug>(caw:i:toggle)
 "########俺マッピング###########
 "###############################
 command! EditVimrc :edit ~/.vimrc
-nmap evv :EditVimrc<CR>
+nnoremap evv :EditVimrc<CR>
 
-nmap qr :QuickRun ruby
+nnoremap qr :QuickRun ruby
 
 command! Markdown :QuickRun markdown
-nmap md :Markdown<CR>	"oldstyle markdown shortcut
-nmap qm :Markdown<CR>	"unify Quickrun-shortcuts "qX"
+nnoremap md :Markdown<CR>	"oldstyle markdown shortcut
+nnoremap qm :Markdown<CR>	"unify Quickrun-shortcuts "qX"
 
 command! Memo edit ~/Dropbox/memo/memo.md
-nmap mm :Memo<CR>
+nnoremap mm :Memo<CR>
 command! -nargs=1 -complete=filetype Tmp edit ~/.vim_tmp/tmp.<args>
 command! -nargs=1 -complete=filetype Temp edit ~/.vim_tmp/tmp.<args>
+
+nnoremap <C-h> :<C-u>help<Space>
 
 nnoremap k gk
 nnoremap j gj
@@ -118,6 +120,7 @@ nnoremap <C-p> gT
 nnoremap <C-n> gt
 "foolproof
 nnoremap ZQ <Nop>
+
 
 "###############################
 "###########検索設定############
