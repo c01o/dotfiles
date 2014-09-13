@@ -83,7 +83,7 @@ set wildmode=list,full
 "markdownファイル読み込み  
 autocmd BufNewFile,BufRead *.{md,mkd,mdn,mdwn,mkdn,mark*} set filetype=markdown  
 ".vimperatorrcを.vimrc扱いでシンタックスハイライト
-autocmd BufNewFile,BufRead *.vimperatorrc set filetype=vim
+autocmd BufNewFile,BufRead *.vimperatorrc set filetype=vimperator
 
 " クリップボード連携
 set clipboard=unnamed,autoselect
