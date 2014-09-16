@@ -99,7 +99,7 @@ vmap <Leader>c <Plug>(caw:i:toggle)
 command! EditVimrc :edit ~/.vimrc
 nnoremap evv :EditVimrc<CR>
 
-nnoremap qr :QuickRun ruby
+nnoremap qr :QuickRun ruby<CR>
 
 command! Markdown :QuickRun markdown
 nnoremap md :Markdown<CR>	"oldstyle markdown shortcut
