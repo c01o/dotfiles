@@ -32,6 +32,7 @@ NeoBundle 'Shougo/vimproc.vim', {
 "openbrowser.vim is now for only previm
 NeoBundle 'kannokanno/previm' " :PrevimOpen only works in filetype=markdown
 NeoBundle 'tyru/open-browser.vim'
+NeoBundle 'tpope/vim-surround'
 
 filetype plugin on
 NeoBundleCheck
