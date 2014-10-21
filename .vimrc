@@ -38,26 +38,34 @@ filetype plugin on
 NeoBundleCheck
 
 "###########
+if has("unix")
+	"im_control.vim用 fcitx設定
+	"日本語入力モードの動作設定
+	let IM_CtrlMode = 6
+	"日本語入力モード切替を<C-j>で
+	inoremap <silent> <C-j> <C-r>=IMState('FixMode')<CR>
 
-"im_control.vim用 fcitx設定
-"日本語入力モードの動作設定
-let IM_CtrlMode = 6
-"日本語入力モード切替を<C-j>で
-inoremap <silent> <C-j> <C-r>=IMState('FixMode')<CR>
+	"<ESC>押下後のIM切り替え開始までの反応が遅い場合はttimeoutlenを短く設定してみてください
+	set timeout timeoutlen=300 ttimeoutlen=10
+	set statusline+=%{IMStatus('[日本語固定]')}
 
-"<ESC>押下後のIM切り替え開始までの反応が遅い場合はttimeoutlenを短く設定してみてください
-set timeout timeoutlen=300 ttimeoutlen=10
-set statusline+=%{IMStatus('[日本語固定]')}
-
-" im_control.vimがない環境でもエラーを出さないためのダミー
-function! IMStatus(...)
-	return '' 
-endfunction
+	" im_control.vimがない環境でもエラーを出さないためのダミー
+	function! IMStatus(...)
+		return '' 
+	endfunction
+elseif has("win64")
+	if has('gui_running')
+		" 「日本語入力固定モード」の動作モード
+		let IM_CtrlMode = 4
+		" GVimで<C-^>が使える場合の「日本語入力固定モード」切替キー
+		inoremap <silent> <C-j> <C-^><C-r>=IMState('FixMode')<CR>
+	else
+		" 非GUIの場合(この例では「日本語入力固定モード」を無効化している)
+		let IM_CtrlMode = 0
+	endif
+endif
 
 "############
-
-
-
 
 
 "###############################
