@@ -77,6 +77,12 @@ endif
 " vimの外観設定
 set nocompatible
 set autoindent
+"#tabwidth################
+set expandtab
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+"#########################
 set showcmd
 set showmode
 set number
