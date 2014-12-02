@@ -103,7 +103,7 @@ augroup MyAutoCmd
 augroup
 
 " クリップボード連携
-set clipboard=unnamed,autoselect
+set clipboard=unnamedplus,autoselect
 
 " \cで行の先頭にコメントをつけたり外したりできる
 nmap <Leader>c <Plug>(caw:i:toggle)
