@@ -11,7 +11,7 @@ setopt list_packed
 export LANG=ja_JP.UTF-8
 
 ### tmux loading ###
-[[ -z "$TMUX" && ! -z "$PS1" ]] && tmux ]]
+[[ -z "$TMUX" && ! -z "$PS1" ]] && tmux
 
 ### color ls and prompts  ###
 zstyle ':completion:*' list-colors 'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'cd=43;34'
