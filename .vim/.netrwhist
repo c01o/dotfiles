@@ -1,8 +1,9 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_cnt =7
 let g:netrw_dirhist_1='/home/miyako-u/RepoDotfiles/.vim'
 let g:netrw_dirhist_2='/home/miyako-u/RepoDotfiles/.vim/bundle'
 let g:netrw_dirhist_3='/home/miyako-u/RepoDotfiles/.vim'
 let g:netrw_dirhist_4='/home/miyako-u/RepoDotfiles'
 let g:netrw_dirhist_5='/home/miyako-u/RepoDotfiles/.vim'
 let g:netrw_dirhist_6='/home/c01o/dotfiles/.vim/bundle/neobundle.vim'
+let g:netrw_dirhist_7='/home/miyako-u/temp/satomi'
