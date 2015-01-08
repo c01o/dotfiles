@@ -1,0 +1,9 @@
+[user]
+	email = melty.antarcticite@gmail.com
+	name = c01o
+[credential]
+	helper = cache --timeout=864000
+[push]
+	default = simple
+[core]
+	excludefile = ~/.gitignore
