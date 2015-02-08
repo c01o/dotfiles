@@ -36,11 +36,21 @@ NeoBundle 'Shougo/vimproc.vim', {
       \     'unix' : 'make -f make_unix.mak',
       \    },
       \ }
-"openbrowser.vim is now for only previm
+" openbrowser.vim is now for only previm
 NeoBundle 'kannokanno/previm' " :PrevimOpen only works in filetype=markdown
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'Keithbsmiley/tmux.vim'
+
+" NeoComplete
+if has('lua') && (( v:version == 703 && has ('patch885')) || (v:version >= 704))
+     NeoBundle 'Shougo/neocomplete'
+else
+     NeoBundle 'Shougo/neocomplcache'
+endif
+NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/neosnippet-snippets'
+NeoBundle 'honza/vim-snippets'
 
 filetype plugin on
 NeoBundleCheck
@@ -115,6 +125,9 @@ set clipboard=unnamedplus,autoselect
 nmap <Leader>c <Plug>(caw:i:toggle)
 vmap <Leader>c <Plug>(caw:i:toggle)
 
+" C-kでNeoSnippet
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
 
 "###############################
 "########俺マッピング###########
