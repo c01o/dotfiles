@@ -7,7 +7,7 @@ if has('vim_starting')
       echo "install neobundle..."
           :call system("git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim")
             endif
-	set runtimepath+=~/.vim/bundle/neobundle.vim/
+    set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
 call neobundle#begin(expand('~/.vim/bundle/'))
@@ -42,6 +42,7 @@ NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'Keithbsmiley/tmux.vim'
 NeoBundle 'eagletmt/ghcmod-vim'
+NeoBundle 'nathanaelkane/vim-indent-guides'
 
 " NeoComplete
 if has('lua') && (( v:version == 703 && has ('patch885')) || (v:version >= 704))
@@ -58,34 +59,39 @@ NeoBundleCheck
 
 "###########
 if has("unix")
-	"im_control.vim用 fcitx設定
-	"日本語入力モードの動作設定
-	let IM_CtrlMode = 6
-	"日本語入力モード切替を<C-j>で
-	inoremap <silent> <C-j> <C-r>=IMState('FixMode')<CR>
+    "im_control.vim用 fcitx設定
+    "日本語入力モードの動作設定
+    let IM_CtrlMode = 6
+    "日本語入力モード切替を<C-j>で
+    inoremap <silent> <C-j> <C-r>=IMState('FixMode')<CR>
 
-	"<ESC>押下後のIM切り替え開始までの反応が遅い場合はttimeoutlenを短く設定してみてください
-	set timeout timeoutlen=300 ttimeoutlen=10
-	set statusline+=%{IMStatus('[日本語固定]')}
+    "<ESC>押下後のIM切り替え開始までの反応が遅い場合はttimeoutlenを短く設定してみてください
+    set timeout timeoutlen=300 ttimeoutlen=10
+    set statusline+=%{IMStatus('[日本語固定]')}
 
-	" im_control.vimがない環境でもエラーを出さないためのダミー
-	function! IMStatus(...)
-		return '' 
-	endfunction
+    " im_control.vimがない環境でもエラーを出さないためのダミー
+    function! IMStatus(...)
+        return '' 
+    endfunction
 elseif has("win64")
-	if has('gui_running')
-		" 「日本語入力固定モード」の動作モード
-		let IM_CtrlMode = 4
-		" GVimで<C-^>が使える場合の「日本語入力固定モード」切替キー
-		inoremap <silent> <C-j> <C-^><C-r>=IMState('FixMode')<CR>
-	else
-		" 非GUIの場合(この例では「日本語入力固定モード」を無効化している)
-		let IM_CtrlMode = 0
-	endif
+    if has('gui_running')
+        " 「日本語入力固定モード」の動作モード
+        let IM_CtrlMode = 4
+        " GVimで<C-^>が使える場合の「日本語入力固定モード」切替キー
+        inoremap <silent> <C-j> <C-^><C-r>=IMState('FixMode')<CR>
+    else
+        " 非GUIの場合(この例では「日本語入力固定モード」を無効化している)
+        let IM_CtrlMode = 0
+    endif
 endif
 
-"############
 
+"vim-indent-color
+let g:indent_guides_enable_on_vim_startup=1
+let g:indent_guides_start_level=2
+let g:indent_guides_auto_colors=0
+let g:indent_guides_color_change_percent = 10
+let g:indent_guides_guide_size = 1
 
 "###############################
 "###########基本設定############
@@ -114,21 +120,16 @@ set laststatus=2
 set wildmode=list,full
 
 augroup MyAutoCmd 
-	autocmd! 
-	autocmd BufNewFile,BufRead *.{md,mkd,mdn,mdwn,mkdn,mark*} set filetype=markdown  
-	autocmd BufNewFile,BufRead *.vimperatorrc set filetype=vimperator
-augroup
+    autocmd! 
+    autocmd BufNewFile,BufRead *.{md,mkd,mdn,mdwn,mkdn,mark*} set filetype=markdown  
+    autocmd BufNewFile,BufRead *.vimperatorrc set filetype=vimperator
+    autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#262626 ctermbg=gray
+    autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#3c3c3c ctermbg=darkgray
+augroup END
 
 " クリップボード連携
 set clipboard=unnamedplus,autoselect
 
-" \cで行の先頭にコメントをつけたり外したりできる
-nmap <Leader>c <Plug>(caw:i:toggle)
-vmap <Leader>c <Plug>(caw:i:toggle)
-
-" C-kでNeoSnippet
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-smap <C-k> <Plug>(neosnippet_expand_or_jump)
 
 "###############################
 "########俺マッピング###########
@@ -139,8 +140,8 @@ nnoremap evv :EditVimrc<CR>
 nnoremap qr :QuickRun ruby<CR>
 
 command! Markdown :QuickRun markdown
-nnoremap md :Markdown<CR>	"oldstyle markdown shortcut
-nnoremap qm :Markdown<CR>	"unify Quickrun-shortcuts "qX"
+nnoremap md :Markdown<CR>    "oldstyle markdown shortcut
+nnoremap qm :Markdown<CR>    "unify Quickrun-shortcuts "qX"
 
 command! Memo edit ~/Dropbox/memo/memo.md
 nnoremap mm :Memo<CR>
@@ -148,7 +149,7 @@ command! -nargs=1 -complete=filetype Tmp edit ~/.vim_tmp/tmp.<args>
 command! -nargs=1 -complete=filetype Temp edit ~/.vim_tmp/tmp.<args>
 
 command! Haskell :QuickRun haskell
-nnoremap qh :Haskell<CR>	"unify Quickrun-shortcuts "qX"
+nnoremap qh :Haskell<CR>    "unify Quickrun-shortcuts "qX"
 
 nnoremap <C-h> :<C-u>help<Space>
 
@@ -161,6 +162,13 @@ nnoremap <C-n> gt
 "foolproof
 nnoremap ZQ <Nop>
 
+" \cで行の先頭にコメントをつけたり外したりできる
+nmap <Leader>c <Plug>(caw:i:toggle)
+vmap <Leader>c <Plug>(caw:i:toggle)
+
+" C-kでNeoSnippet
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
 
 "###############################
 "###########検索設定############
@@ -176,5 +184,5 @@ set wrapscan
 
 " migemo-search.vim有効化
 if executable('cmigemo')
-	cnoremap <expr><CR> migemosearch#replace_search_word()."\<CR>"
+    cnoremap <expr><CR> migemosearch#replace_search_word()."\<CR>"
 endif
