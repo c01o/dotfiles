@@ -41,6 +41,7 @@ NeoBundle 'kannokanno/previm' " :PrevimOpen only works in filetype=markdown
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'Keithbsmiley/tmux.vim'
+NeoBundle 'eagletmt/ghcmod-vim'
 
 " NeoComplete
 if has('lua') && (( v:version == 703 && has ('patch885')) || (v:version >= 704))
@@ -145,6 +146,9 @@ command! Memo edit ~/Dropbox/memo/memo.md
 nnoremap mm :Memo<CR>
 command! -nargs=1 -complete=filetype Tmp edit ~/.vim_tmp/tmp.<args>
 command! -nargs=1 -complete=filetype Temp edit ~/.vim_tmp/tmp.<args>
+
+command! Haskell :QuickRun haskell
+nnoremap qh :Haskell<CR>	"unify Quickrun-shortcuts "qX"
 
 nnoremap <C-h> :<C-u>help<Space>
 
