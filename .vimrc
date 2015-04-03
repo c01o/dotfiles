@@ -98,6 +98,7 @@ let g:indent_guides_guide_size = 1
 "###############################
 
 " vimの外観設定
+syntax enable
 set nocompatible
 set autoindent
 "#tabwidth################
