@@ -98,14 +98,15 @@ let g:indent_guides_guide_size = 1
 "###############################
 
 " vimの外観設定
+filetype plugin indent on
 syntax enable
 set nocompatible
 set autoindent
 "#tabwidth################
 set expandtab
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
 "#########################
 set showcmd
 set showmode
