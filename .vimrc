@@ -86,13 +86,6 @@ elseif has("win64")
 endif
 
 
-"vim-indent-color
-let g:indent_guides_enable_on_vim_startup=1
-let g:indent_guides_start_level=2
-let g:indent_guides_auto_colors=0
-let g:indent_guides_color_change_percent = 10
-let g:indent_guides_guide_size = 1
-
 "###############################
 "###########基本設定############
 "###############################
@@ -100,6 +93,7 @@ let g:indent_guides_guide_size = 1
 " vimの外観設定
 filetype plugin indent on
 syntax enable
+colorscheme slate
 set nocompatible
 set autoindent
 "#tabwidth################
@@ -188,3 +182,11 @@ set wrapscan
 if executable('cmigemo')
     cnoremap <expr><CR> migemosearch#replace_search_word()."\<CR>"
 endif
+
+"vim-indent-color
+let g:indent_guides_enable_on_vim_startup=1
+let g:indent_guides_start_level=2
+let g:indent_guides_auto_colors=0
+let g:indent_guides_color_change_percent = 10
+let g:indent_guides_guide_size = 1
+
