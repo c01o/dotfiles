@@ -81,8 +81,8 @@ if [[ $EUID != 0 ]]; then
   # -T: SUDO_PATHとsudo_pathを連動する。
   typeset -xT SUDO_PATH sudo_path
   typeset -U sudo_path 
-  sudo_path=({,/usr/pkg,/usr/local,/usr}/sbin(N-/))
-  alias sudo="sudo env PATH=\"SUDO_PATH:$PATH\""
+  #sudo_path=({,/usr/pkg,/usr/local,/usr}/sbin(N-/))
+  #alias sudo="sudo env PATH=\"SUDO_PATH:$PATH\""
 fi
 
 ### assign history search as <C-p>, <C-n> ###
