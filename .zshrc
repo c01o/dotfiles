@@ -47,6 +47,10 @@ setopt share_history        # share command history data
 setopt inc_append_history   # as soon as append history
 setopt hist_reduce_blanks
 setopt complete_aliases
+
+### completion ###
+autoload -U compinit
+compinit
 ## 補完候補を一覧表示
 setopt auto_list
 ## TAB で順に補完候補を切り替える
@@ -71,6 +75,15 @@ setopt always_last_prompt
 setopt extended_glob
 ## .ファイルもグロブマッチ有効
 setopt globdots
+## sudoでも補完する
+if [[ $EUID != 0 ]]; then
+  # -x: export SUDO_PATHも一緒に行う。
+  # -T: SUDO_PATHとsudo_pathを連動する。
+  typeset -xT SUDO_PATH sudo_path
+  typeset -U sudo_path 
+  #sudo_path=({,/usr/pkg,/usr/local,/usr}/sbin(N-/))
+  #alias sudo="sudo env PATH=\"SUDO_PATH:$PATH\""
+fi
 
 ### assign history search as <C-p>, <C-n> ###
 autoload history-search-end
