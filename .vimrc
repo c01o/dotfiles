@@ -12,7 +12,6 @@ endif
 
 call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
-call neobundle#end()
 
 " Let NeoBundle manage NeoBundle
 NeoBundleFetch 'Shougo/neobundle.vim'
@@ -37,7 +36,7 @@ NeoBundle 'Shougo/vimproc.vim', {
       \    },
       \ }
 " openbrowser.vim is now for only previm
-NeoBundle 'kannokanno/previm' " :PrevimOpen only works in filetype=markdown
+NeoBundle 'c01o/previm' " :PrevimOpen only works in filetype=markdown
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'Keithbsmiley/tmux.vim'
@@ -54,9 +53,10 @@ NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'honza/vim-snippets'
 
-filetype plugin on
 NeoBundleCheck
+call neobundle#end()
 
+filetype plugin on
 "###########
 if has("unix")
     "im_control.vim用 fcitx設定
