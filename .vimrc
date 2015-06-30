@@ -142,7 +142,7 @@ nnoremap evv :EditVimrc<CR>
 
 nnoremap qr :QuickRun ruby<CR>
 
-command! Markdown :QuickRun markdown
+command! Markdown :PrevimOpen
 nnoremap md :Markdown<CR>    "oldstyle markdown shortcut
 nnoremap qm :Markdown<CR>    "unify Quickrun-shortcuts "qX"
 
