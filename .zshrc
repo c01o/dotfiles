@@ -160,15 +160,3 @@ setopt transient_rprompt
 ### Travis CI gem ###
 # added by travis gem 
 [ -f /home/miyako-u/.travis/travis.sh ] && source /home/miyako-u/.travis/travis.sh
-
-# ------------------------------------------------------------------------
-# zsh-completions
-# ------------------------------------------------------------------------
-if [ -d ${HOME}/.zsh/zsh-completions/src ] ; then
-   fpath=(${HOME}/.zsh/zsh-completions/src $fpath)
-   compinit
-fi
-
-
-source ~/.xsh
-
