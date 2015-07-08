@@ -160,3 +160,6 @@ setopt transient_rprompt
 ### Travis CI gem ###
 # added by travis gem 
 [ -f /home/miyako-u/.travis/travis.sh ] && source /home/miyako-u/.travis/travis.sh
+
+### rbenv ###
+[[ -x `whence -p rbenv` ]] && eval "$(rbenv init -)"
