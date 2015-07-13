@@ -13,20 +13,23 @@ endif
 call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-" Let NeoBundle manage NeoBundle
-NeoBundleFetch 'Shougo/neobundle.vim'
-
 " add plugin
+"" documantation
 NeoBundle 'vim-jp/vimdoc-ja'
-NeoBundle 'Townk/vim-autoclose'
-NeoBundle 'tyru/caw.vim'
-NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-ref'
+"" editor functions
 NeoBundle 'fuenor/im_control.vim'
+NeoBundle 'Townk/vim-autoclose'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'rhysd/migemo-search.vim'
+"" tools
 NeoBundle 'VimRepress'
 NeoBundle 'Shougo/vimshell'
-" vimproc is needed for vimshell
+NeoBundle 'tyru/open-browser.vim' " for previm
+"" programing
+NeoBundle 'tyru/caw.vim'
+NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'Shougo/vimproc.vim', { 
       \ 'build' : {
       \     'windows' : 'make -f make_mingw32.mak',
@@ -35,22 +38,7 @@ NeoBundle 'Shougo/vimproc.vim', {
       \     'unix' : 'make -f make_unix.mak',
       \    },
       \ }
-" openbrowser.vim is now for only previm
-NeoBundle 'c01o/previm' " :PrevimOpen only works in filetype=markdown
-NeoBundle 'tyru/open-browser.vim'
-NeoBundle 'yaasita/ore_markdown', {
-      \ 'build' : {
-      \     'windows' : 'bundle install --gemfile .\bin\Gemfile',
-      \     'mac' : 'bundle install --gemfile ./bin/Gemfile',
-      \     'unix' : 'bundle install --gemfile ./bin/Gemfile'
-      \    },
-      \ }
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'Keithbsmiley/tmux.vim'
-NeoBundle 'eagletmt/ghcmod-vim'
-NeoBundle 'nathanaelkane/vim-indent-guides'
 
-" NeoComplete
 if has('lua') && (( v:version == 703 && has ('patch885')) || (v:version >= 704))
      NeoBundle 'Shougo/neocomplete'
 else
@@ -59,6 +47,20 @@ endif
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'honza/vim-snippets'
+
+"" for several languages
+NeoBundle 'keith/tmux.vim' " tmux
+NeoBundle 'osyo-manga/vim-monster' " ruby
+NeoBundle 'eagletmt/ghcmod-vim' " haskell
+NeoBundle 'c01o/previm' " markdown
+NeoBundle 'yaasita/ore_markdown', { 
+      \ 'build' : {
+      \     'windows' : 'bundle install --gemfile .\bin\Gemfile',
+      \     'mac' : 'bundle install --gemfile ./bin/Gemfile',
+      \     'unix' : 'bundle install --gemfile ./bin/Gemfile'
+      \    },
+      \ }
+
 
 NeoBundleCheck
 call neobundle#end()
@@ -197,3 +199,7 @@ let g:indent_guides_auto_colors=0
 let g:indent_guides_color_change_percent = 10
 let g:indent_guides_guide_size = 1
 
+" Use neocomplete.vim
+let g:neocomplete#sources#omni#input_patterns = {
+\   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
+\}

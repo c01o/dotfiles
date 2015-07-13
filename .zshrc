@@ -37,6 +37,9 @@ alias lo='ls -la --color'
 alias la='ls -a --color'
 alias ll='ls -l --color'
 
+### prompt crontab -r ###
+alias crontab='crontab -i'
+
 ### enable command history ###
 HISTFILE=~/.zsh_history
 HISTSIZE=100000
