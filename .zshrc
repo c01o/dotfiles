@@ -37,6 +37,9 @@ alias lo='ls -la --color'
 alias la='ls -a --color'
 alias ll='ls -l --color'
 
+### prompt crontab -r ###
+alias crontab='crontab -i'
+
 ### enable command history ###
 HISTFILE=~/.zsh_history
 HISTSIZE=100000
@@ -159,8 +162,9 @@ setopt transient_rprompt
 
 ### Travis CI gem ###
 # added by travis gem 
-[ -f /home/miyako-u/.travis/travis.sh ] && source /home/miyako-u/.travis/travis.sh
+[ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh
 
 ### rbenv ###
 [[ -x `whence -p rbenv` ]] && eval "$(rbenv init -)"
-source /home/miyako-u//cool-peco/cool-peco
+
+source ~/cool-peco/cool-peco
