@@ -23,6 +23,8 @@ NeoBundle 'Townk/vim-autoclose'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'rhysd/migemo-search.vim'
+NeoBundle 'scrooloose/syntastic'
+
 "" tools
 NeoBundle 'VimRepress'
 NeoBundle 'Shougo/vimshell'
@@ -204,3 +206,7 @@ let g:indent_guides_guide_size = 1
 let g:neocomplete#sources#omni#input_patterns = {
 \   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
 \}
+
+" rubocop static code analyzer on save
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ruby'] }
+
