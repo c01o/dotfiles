@@ -220,9 +220,17 @@ let g:indent_guides_color_change_percent = 10
 let g:indent_guides_guide_size = 1
 
 " Use neocomplete.vim
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#sources#omni#input_patterns = {
 \   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
 \}
+" <TAB> completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplete#close_popup()
+inoremap <expr><C-e>  neocomplete#cancel_popup()
 
 " rubocop static code analyzer on save
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ruby'] }
