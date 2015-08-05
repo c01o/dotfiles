@@ -53,9 +53,15 @@ NeoBundle 'honza/vim-snippets'
 
 "" for several languages
 NeoBundle 'keith/tmux.vim' " tmux
-NeoBundle 'osyo-manga/vim-monster' " ruby
-NeoBundle 'eagletmt/ghcmod-vim' " haskell
-NeoBundle 'c01o/previm' " markdown
+" ruby
+" NeoBundle 'osyo-manga/vim-monster' " <- ruby2.2?
+NeoBundle 'tpope/vim-endwise'
+NeoBundle 'marcus/rsense'
+NeoBundle 'supermomonga/neocomplete-rsense.vim'
+" haskell
+NeoBundle 'eagletmt/ghcmod-vim'
+" markdown
+NeoBundle 'c01o/previm'
 NeoBundle 'yaasita/ore_markdown', { 
       \ 'build' : {
       \     'windows' : 'bundle install --gemfile .\bin\Gemfile',
@@ -197,6 +203,14 @@ set wrapscan
 if executable('cmigemo')
     cnoremap <expr><CR> migemosearch#replace_search_word()."\<CR>"
 endif
+
+" Use RSence to omnicompletion
+let g:rsenseUseOmniFunc = 1
+
+
+"###############################
+"##########その他設定###########
+"###############################
 
 "vim-indent-color
 let g:indent_guides_enable_on_vim_startup=1
