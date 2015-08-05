@@ -141,6 +141,7 @@ command! EditVimrc :edit ~/.vimrc
 nnoremap evv :EditVimrc<CR>
 
 nnoremap qr :QuickRun ruby<CR>
+nnoremap <C-h><C-r> :Ref refe 
 
 command! Markdown :PrevimOpen
 nnoremap md :Markdown<CR>    "oldstyle markdown shortcut
@@ -154,7 +155,7 @@ command! -nargs=1 -complete=filetype Temp edit ~/.vim_tmp/tmp.<args>
 command! Haskell :QuickRun haskell
 nnoremap qh :Haskell<CR>    "unify Quickrun-shortcuts "qX"
 
-nnoremap <C-h> :<C-u>help<Space>
+nnoremap <C-h><C-h> :<C-u>help<Space>
 
 nnoremap k gk
 nnoremap j gj
