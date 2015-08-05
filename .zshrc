@@ -163,3 +163,4 @@ setopt transient_rprompt
 
 ### rbenv ###
 [[ -x `whence -p rbenv` ]] && eval "$(rbenv init -)"
+source /home/miyako-u//cool-peco/cool-peco
