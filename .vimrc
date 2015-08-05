@@ -40,6 +40,7 @@ NeoBundle 'Shougo/vimproc.vim', {
       \     'unix' : 'make -f make_unix.mak',
       \    },
       \ }
+NeoBundle 'szw/vim-tags'
 
 if has('lua') && (( v:version == 703 && has ('patch885')) || (v:version >= 704))
      NeoBundle 'Shougo/neocomplete'
@@ -160,6 +161,8 @@ command! Haskell :QuickRun haskell
 nnoremap qh :Haskell<CR>    "unify Quickrun-shortcuts "qX"
 
 nnoremap <C-h><C-h> :<C-u>help<Space>
+
+nnoremap tgg :TagsGenerate!<CR>
 
 nnoremap k gk
 nnoremap j gj
