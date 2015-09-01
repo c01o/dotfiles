@@ -1,4 +1,7 @@
 *.swp
 *~
 .vim/bundle/
+.vim/netrwhist
+.vimperator/info/default/macros
 .DS_Store
+
