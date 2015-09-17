@@ -33,14 +33,15 @@ NeoBundle 'tyru/open-browser.vim' " for previm
 "" programing
 NeoBundle 'tyru/caw.vim'
 NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'Shougo/vimproc.vim', { 
-      \ 'build' : {
-      \     'windows' : 'make -f make_mingw32.mak',
-      \     'cygwin' : 'make -f make_cygwin.mak',
-      \     'mac' : 'make -f make_mac.mak',
-      \     'unix' : 'make -f make_unix.mak',
-      \    },
-      \ }
+NeoBundle 'Shougo/vimproc.vim', {
+\ 'build' : {
+\     'windows' : 'tools\\update-dll-mingw',
+\     'cygwin' : 'make -f make_cygwin.mak',
+\     'mac' : 'make -f make_mac.mak',
+\     'linux' : 'make',
+\     'unix' : 'gmake',
+\    },
+\ }
 NeoBundle 'szw/vim-tags'
 
 if has('lua') && (( v:version == 703 && has ('patch885')) || (v:version >= 704))
