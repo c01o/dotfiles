@@ -2,18 +2,26 @@
 "#########プラグイン管理########
 "###############################
 
+" Note: Skip initialization for vim-tiny or vim-small.
+if 0 | endif
+
 if has('vim_starting')
-  if !isdirectory(expand("~/.vim/bundle/neobundle.vim/"))
-      echo "install neobundle..."
-          :call system("git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim")
-            endif
-    set runtimepath+=~/.vim/bundle/neobundle.vim/
+  if &compatible
+    set nocompatible               " Be iMproved
+  endif
+
+  set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
 call neobundle#begin(expand('~/.vim/bundle/'))
+
+" Let NeoBundle manage NeoBundle
+" Required:
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-" add plugin
+" My Bundles here:
+" Refer to |:NeoBundle-examples|.
+" Note: You don't set neobundle setting in .gvimrc!
 "" documantation
 NeoBundle 'vim-jp/vimdoc-ja'
 NeoBundle 'thinca/vim-ref'
@@ -72,11 +80,15 @@ NeoBundle 'yaasita/ore_markdown', {
       \    },
       \ }
 
+ call neobundle#end()
 
-NeoBundleCheck
-call neobundle#end()
+ " Required:
+ filetype plugin indent on
 
-filetype plugin on
+ " If there are uninstalled bundles found on startup,
+ " this will conveniently prompt you to install them.
+ NeoBundleCheck
+
 "###########
 if has("unix")
     "im_control.vim用 fcitx設定
@@ -111,10 +123,8 @@ endif
 "###############################
 
 " vimの外観設定
-filetype plugin indent on
 syntax enable
 colorscheme slate
-set nocompatible
 set autoindent
 "#tabwidth################
 set expandtab
@@ -236,4 +246,3 @@ inoremap <expr><C-e>  neocomplete#cancel_popup()
 
 " rubocop static code analyzer on save
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ruby'] }
-
