@@ -27,7 +27,6 @@ NeoBundle 'vim-jp/vimdoc-ja'
 NeoBundle 'thinca/vim-ref'
 "" editor functions
 NeoBundle 'fuenor/im_control.vim'
-"NeoBundle 'Townk/vim-autoclose' " incompatibility with neocomplete. the plugin just below is new one 
 NeoBundle 'jiangmiao/auto-pairs'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'nathanaelkane/vim-indent-guides'
@@ -35,7 +34,6 @@ NeoBundle 'rhysd/migemo-search.vim'
 NeoBundle 'scrooloose/syntastic'
 
 "" tools
-NeoBundle 'VimRepress'
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'tyru/open-browser.vim' " for previm
 "" programing
