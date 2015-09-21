@@ -64,7 +64,7 @@ NeoBundle 'keith/tmux.vim' " tmux
 " ruby
 " NeoBundle 'osyo-manga/vim-monster' " <- ruby2.2?
 NeoBundle 'tpope/vim-endwise'
-NeoBundle 'marcus/rsense'
+NeoBundle 'NigoroJr/rsense' " marcus/rsense has probrem with help
 NeoBundle 'supermomonga/neocomplete-rsense.vim'
 " haskell
 NeoBundle 'eagletmt/ghcmod-vim'
