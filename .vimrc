@@ -159,26 +159,25 @@ set clipboard=unnamedplus,autoselect
 "########俺マッピング###########
 "###############################
 command! EditVimrc :edit ~/.vimrc
-nnoremap evv :EditVimrc<CR>
+nnoremap evv :<C-u>EditVimrc<CR>
 
-nnoremap qr :QuickRun ruby<CR>
-nnoremap <C-h><C-r> :Ref refe 
+nnoremap qr :<C-u>QuickRun ruby<CR>
 
 command! Markdown :PrevimOpen
-nnoremap md :Markdown<CR>    "oldstyle markdown shortcut
-nnoremap qm :Markdown<CR>    "unify Quickrun-shortcuts "qX"
+nnoremap qm :<C-u>Markdown<CR>
 
 command! Memo edit ~/Dropbox/memo/memo.md
-nnoremap mm :Memo<CR>
+nnoremap mm :<C-u>Memo<CR>
 command! -nargs=1 -complete=filetype Tmp edit ~/.vim_tmp/tmp.<args>
 command! -nargs=1 -complete=filetype Temp edit ~/.vim_tmp/tmp.<args>
 
 command! Haskell :QuickRun haskell
-nnoremap qh :Haskell<CR>    "unify Quickrun-shortcuts "qX"
+nnoremap qh :<C-u>Haskell<CR>
 
 nnoremap <C-h><C-h> :<C-u>help<Space>
+nnoremap <C-h><C-r> :<C-u>Ref refe 
 
-nnoremap tgg :TagsGenerate!<CR>
+nnoremap tgg :<C-u>TagsGenerate!<CR>
 
 nnoremap k gk
 nnoremap j gj
