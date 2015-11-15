@@ -134,6 +134,7 @@ set showcmd
 set showmode
 set number
 set backspace=indent,eol,start
+set encoding=utf-8
 set fencs=utf-8,shift-jis,euc-jp,latin1
 set ambw=double
 set list
