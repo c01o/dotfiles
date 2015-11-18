@@ -245,3 +245,9 @@ inoremap <expr><C-e>  neocomplete#cancel_popup()
 
 " rubocop static code analyzer on save
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ruby'] }
+
+" erb-style surroundings
+" thanks to:
+" https://github.com/tpope/vim-rails/issues/245
+let g:surround_{char2nr('-')} = "<% \r %>"
+let g:surround_{char2nr('=')} = "<%= \r %>"
