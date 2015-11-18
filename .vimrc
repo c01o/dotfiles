@@ -77,6 +77,7 @@ NeoBundle 'yaasita/ore_markdown', {
       \     'unix' : 'bundle install --gemfile ./bin/Gemfile'
       \    },
       \ }
+NeoBundle 'mattn/emmet-vim'
 
  call neobundle#end()
 
