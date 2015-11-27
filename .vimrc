@@ -163,26 +163,23 @@ set clipboard=unnamedplus,autoselect
 command! EditVimrc :edit ~/.vimrc
 nnoremap evv :<C-u>EditVimrc<CR>
 
+" quickrun
 nnoremap qr :<C-u>QuickRun ruby<CR>
 nnoremap qp :<C-u>QuickRun python<CR>
 
 command! Markdown :PrevimOpen
 nnoremap qm :<C-u>Markdown<CR>
 
-command! Memo edit ~/Dropbox/memo/memo.md
-nnoremap mm :<C-u>Memo<CR>
-command! -nargs=1 -complete=filetype Tmp edit ~/.vim_tmp/tmp.<args>
-command! -nargs=1 -complete=filetype Temp edit ~/.vim_tmp/tmp.<args>
-
 command! Haskell :QuickRun haskell
 nnoremap qh :<C-u>Haskell<CR>
 
+" help/documents
 nnoremap <C-h><C-h> :<C-u>help<Space>
 nnoremap <C-h><C-r> :<C-u>Ref refe 
 nnoremap <C-h><C-p> :<C-u>Ref pydoc 
 
-nnoremap tgg :<C-u>TagsGenerate!<CR>
 
+" basic commands remapping
 nnoremap k gk
 nnoremap j gj
 vnoremap k gk
@@ -196,9 +193,19 @@ nnoremap ZQ <Nop>
 nmap <Leader>c <Plug>(caw:i:toggle)
 vmap <Leader>c <Plug>(caw:i:toggle)
 
+" tggでジャンプ用タグ生成
+nnoremap tgg :<C-u>TagsGenerate!<CR>
+
 " C-kでNeoSnippet
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
 smap <C-k> <Plug>(neosnippet_expand_or_jump)
+
+" memo
+command! Memo edit ~/Dropbox/memo/memo.md
+nnoremap mm :<C-u>Memo<CR>
+command! -nargs=1 -complete=filetype Tmp edit ~/.vim_tmp/tmp.<args>
+command! -nargs=1 -complete=filetype Temp edit ~/.vim_tmp/tmp.<args>
+
 
 "###############################
 "###########検索設定############
