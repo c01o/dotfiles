@@ -164,6 +164,7 @@ command! EditVimrc :edit ~/.vimrc
 nnoremap evv :<C-u>EditVimrc<CR>
 
 nnoremap qr :<C-u>QuickRun ruby<CR>
+nnoremap qp :<C-u>QuickRun python<CR>
 
 command! Markdown :PrevimOpen
 nnoremap qm :<C-u>Markdown<CR>
@@ -178,6 +179,7 @@ nnoremap qh :<C-u>Haskell<CR>
 
 nnoremap <C-h><C-h> :<C-u>help<Space>
 nnoremap <C-h><C-r> :<C-u>Ref refe 
+nnoremap <C-h><C-p> :<C-u>Ref pydoc 
 
 nnoremap tgg :<C-u>TagsGenerate!<CR>
 
