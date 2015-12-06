@@ -50,14 +50,18 @@ NeoBundle 'Shougo/vimproc.vim', {
 \ }
 NeoBundle 'szw/vim-tags'
 
-if has('lua') && (( v:version == 703 && has ('patch885')) || (v:version >= 704))
-     NeoBundle 'Shougo/neocomplete'
+if has('nvim')
+  NeoBundle 'Shougo/deoplete.nvim'
 else
-     NeoBundle 'Shougo/neocomplcache'
+  if has('lua') && (( v:version == 703 && has ('patch885')) || (v:version >= 704))
+       NeoBundle 'Shougo/neocomplete'
+  else
+       NeoBundle 'Shougo/neocomplcache'
+  endif
+  NeoBundle 'Shougo/neosnippet'
+  NeoBundle 'Shougo/neosnippet-snippets'
+  NeoBundle 'honza/vim-snippets'
 endif
-NeoBundle 'Shougo/neosnippet'
-NeoBundle 'Shougo/neosnippet-snippets'
-NeoBundle 'honza/vim-snippets'
 
 "" for several languages
 NeoBundleLazy 'keith/tmux.vim', {'autoload': {'filetypes': ['tmux']}}
@@ -242,13 +246,30 @@ let g:indent_guides_auto_colors=0
 let g:indent_guides_color_change_percent = 10
 let g:indent_guides_guide_size = 1
 
-" Use neocomplete.vim
-let g:acp_enableAtStartup = 0
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#sources#omni#input_patterns = {
-\   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
-\}
+if has('nvim')
+  let s:hooks = neobundle#get_hooks("deoplete.nvim")
+  function! s:hooks.on_source(bundle)
+    let g:deoplete#enable_at_startup = 1
+  endfunction
+else
+  " Use neocomplete.vim
+  let g:acp_enableAtStartup = 0
+  let g:neocomplete#enable_at_startup = 1
+  let g:neocomplete#enable_smart_case = 1
+  let g:neocomplete#sources#omni#input_patterns = {
+  \   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
+  \}
+
+  " use jedi(python code-complete plugin) in neocomplete
+  autocmd FileType python setlocal omnifunc=jedi#completions
+  let g:jedi#auto_vim_configuration = 0
+
+  if !exists('g:neocomplete#force_omni_input_patterns')
+    let g:neocomplete#force_omni_input_patterns = {}
+  endif
+
+  let g:neocomplete#force_omni_input_patterns.python = '\h\w*\|[^. \t]\.\w*'
+endif
 " <TAB> completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
@@ -265,12 +286,3 @@ let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ruby'] }
 let g:surround_{char2nr('-')} = "<% \r %>"
 let g:surround_{char2nr('=')} = "<%= \r %>"
 
-" use jedi(python code-complete plugin) in neocomplete
-autocmd FileType python setlocal omnifunc=jedi#completions
-let g:jedi#auto_vim_configuration = 0
-
-if !exists('g:neocomplete#force_omni_input_patterns')
-  let g:neocomplete#force_omni_input_patterns = {}
-endif
-
-let g:neocomplete#force_omni_input_patterns.python = '\h\w*\|[^. \t]\.\w*'
