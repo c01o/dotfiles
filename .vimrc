@@ -60,35 +60,36 @@ NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'honza/vim-snippets'
 
 "" for several languages
-NeoBundle 'keith/tmux.vim' " tmux
+NeoBundleLazy 'keith/tmux.vim', {'autoload': {'filetypes': ['tmux']}}
 " ruby
-" NeoBundle 'osyo-manga/vim-monster' " <- ruby2.2?
-NeoBundle 'tpope/vim-endwise'
-NeoBundle 'NigoroJr/rsense' " marcus/rsense has probrem with help
-NeoBundle 'supermomonga/neocomplete-rsense.vim'
+NeoBundleLazy 'tpope/vim-endwise', {'autoload': {'filetypes': ['ruby']}}
+NeoBundleLazy 'NigoroJr/rsense', {'autoload': {'filetypes': ['ruby']}}
+NeoBundleLazy 'supermomonga/neocomplete-rsense.vim', {'autoload': {'filetypes': ['ruby']}}
 " python
-NeoBundle 'davidhalter/jedi-vim'
+NeoBundleLazy 'davidhalter/jedi-vim', {'autoload': {'filetypes': ['python']}}
 " haskell
-NeoBundle 'eagletmt/ghcmod-vim'
+NeoBundleLazy 'eagletmt/ghcmod-vim', {'autoload': {'filetypes': ['haskell']}}
 " markdown
-NeoBundle 'c01o/previm'
-NeoBundle 'yaasita/ore_markdown', { 
+NeoBundleLazy 'c01o/previm', {'autoload': {'filetypes': ['markdown']}}
+NeoBundleLazy 'yaasita/ore_markdown', {
+      \ 'autoload': {'filetypes': ['markdown']},
       \ 'build' : {
       \     'windows' : 'bundle install --gemfile .\bin\Gemfile',
       \     'mac' : 'bundle install --gemfile ./bin/Gemfile',
       \     'unix' : 'bundle install --gemfile ./bin/Gemfile'
       \    },
       \ }
+" others
 NeoBundle 'mattn/emmet-vim'
 
- call neobundle#end()
+call neobundle#end()
 
- " Required:
- filetype plugin indent on
+" Required:
+filetype plugin indent on
 
- " If there are uninstalled bundles found on startup,
- " this will conveniently prompt you to install them.
- NeoBundleCheck
+" If there are uninstalled bundles found on startup,
+" this will conveniently prompt you to install them.
+NeoBundleCheck
 
 "###########
 if has("unix")
