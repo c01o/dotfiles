@@ -66,6 +66,8 @@ NeoBundle 'keith/tmux.vim' " tmux
 NeoBundle 'tpope/vim-endwise'
 NeoBundle 'NigoroJr/rsense' " marcus/rsense has probrem with help
 NeoBundle 'supermomonga/neocomplete-rsense.vim'
+" python
+NeoBundle 'davidhalter/jedi-vim'
 " haskell
 NeoBundle 'eagletmt/ghcmod-vim'
 " markdown
@@ -240,6 +242,7 @@ let g:indent_guides_color_change_percent = 10
 let g:indent_guides_guide_size = 1
 
 " Use neocomplete.vim
+let g:acp_enableAtStartup = 0
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#sources#omni#input_patterns = {
@@ -260,3 +263,13 @@ let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ruby'] }
 " https://github.com/tpope/vim-rails/issues/245
 let g:surround_{char2nr('-')} = "<% \r %>"
 let g:surround_{char2nr('=')} = "<%= \r %>"
+
+" use jedi(python code-complete plugin) in neocomplete
+autocmd FileType python setlocal omnifunc=jedi#completions
+let g:jedi#auto_vim_configuration = 0
+
+if !exists('g:neocomplete#force_omni_input_patterns')
+  let g:neocomplete#force_omni_input_patterns = {}
+endif
+
+let g:neocomplete#force_omni_input_patterns.python = '\h\w*\|[^. \t]\.\w*'
