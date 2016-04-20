@@ -1,99 +1,138 @@
 "###############################
 "#########プラグイン管理########
 "###############################
+" Flags
+let s:use_dein = 1
 
-" Note: Skip initialization for vim-tiny or vim-small.
-if 0 | endif
-
-if has('vim_starting')
-  if &compatible
-    set nocompatible               " Be iMproved
-  endif
-
-  set runtimepath+=~/.vim/bundle/neobundle.vim/
+" vi compatibility
+if !&compatible
+  set nocompatible
 endif
 
-call neobundle#begin(expand('~/.vim/bundle/'))
-
-" Let NeoBundle manage NeoBundle
-" Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-" My Bundles here:
-" Refer to |:NeoBundle-examples|.
-" Note: You don't set neobundle setting in .gvimrc!
-"" documantation
-NeoBundle 'vim-jp/vimdoc-ja'
-NeoBundle 'thinca/vim-ref'
-"" editor functions
-NeoBundle 'fuenor/im_control.vim'
-NeoBundle 'jiangmiao/auto-pairs'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'nathanaelkane/vim-indent-guides'
-NeoBundle 'rhysd/migemo-search.vim'
-NeoBundle 'scrooloose/syntastic'
-
-"" tools
-NeoBundle 'Shougo/vimshell'
-NeoBundle 'tyru/open-browser.vim' " for previm
-"" programing
-NeoBundle 'tyru/caw.vim'
-NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'Shougo/vimproc.vim', {
-\ 'build' : {
-\     'windows' : 'tools\\update-dll-mingw',
-\     'cygwin' : 'make -f make_cygwin.mak',
-\     'mac' : 'make -f make_mac.mak',
-\     'linux' : 'make',
-\     'unix' : 'gmake',
-\    },
-\ }
-NeoBundle 'szw/vim-tags'
-
-if has('nvim')
-  NeoBundle 'Shougo/deoplete.nvim'
-else
-  if has('lua') && (( v:version == 703 && has ('patch885')) || (v:version >= 704))
-       NeoBundle 'Shougo/neocomplete'
-  else
-       NeoBundle 'Shougo/neocomplcache'
+" Prepare .vim dir
+let s:vimdir = $HOME . "/.vim"
+if has("vim_starting")
+  if ! isdirectory(s:vimdir)
+    call system("mkdir " . s:vimdir)
   endif
-  NeoBundle 'Shougo/neosnippet'
-  NeoBundle 'Shougo/neosnippet-snippets'
-  NeoBundle 'honza/vim-snippets'
 endif
+
+" dein
+let s:dein_enabled  = 0
+if s:use_dein && v:version >= 704
+  let s:dein_enabled = 1
+
+  " Set dein paths
+  let s:dein_dir = s:vimdir . '/dein'
+  let s:dein_github = s:dein_dir . '/repos/github.com'
+  let s:dein_repo_name = "Shougo/dein.vim"
+  let s:dein_repo_dir = s:dein_github . '/' . s:dein_repo_name
+
+  " Check dein has been installed or not.
+  if !isdirectory(s:dein_repo_dir)
+    echo "dein is not installed, install now "
+    let s:dein_repo = "https://github.com/" . s:dein_repo_name
+    echo "git clone " . s:dein_repo . " " . s:dein_repo_dir
+    call system("git clone " . s:dein_repo . " " . s:dein_repo_dir)
+  endif
+  let &runtimepath = &runtimepath . "," . s:dein_repo_dir
+
+  " Begin plugin part
+  call dein#begin(s:dein_dir)
+
+  " Check cache
+  if dein#load_cache()
+
+    """""""""""""""""""""""
+    "" plugin management ""
+    """""""""""""""""""""""
+    call dein#add('Shougo/dein.vim')
+
+    " documantation
+    call dein#add('vim-jp/vimdoc-ja')
+    call dein#add('thinca/vim-ref')
+
+    " editor functions
+    "" core util
+    call dein#add('Shougo/vimproc', {
+          \ 'build': {
+          \     'windows': 'tools\\update-dll-mingw',
+          \     'cygwin': 'make -f make_cygwin.mak',
+          \     'mac': 'make -f make_mac.mak',
+          \     'linux': 'make',
+          \     'unix': 'gmake'}})
+    "" input support
+    call dein#add('fuenor/im_control.vim')
+    call dein#add('jiangmiao/auto-pairs')
+    call dein#add('tpope/vim-surround')
+    call dein#add('tyru/caw.vim')
+    "" looks
+    call dein#add('nathanaelkane/vim-indent-guides')
+    "" search
+    call dein#add('rhysd/migemo-search.vim')
+
+    " programming support
+    "" test run
+    call dein#add('tyru/open-browser.vim', {'depends': ['Shougo/vimproc']})
+    call dein#add('thinca/vim-quickrun',   {'depends': ['tyru/open-browser.vim']})
+    "" syntax check
+    call dein#add('scrooloose/syntastic')
+    "" enable smart tag-jump
+    call dein#add('szw/vim-tags')
+    "" snippet
+    call dein#add('Shougo/neosnippet', {'depends': ['neosnippet.vim']})
+    call dein#add('Shougo/neosnippet-snippets', {'depends': ['neosnippet.vim']})
+    call dein#add('honza/vim-snippets', {'depends': ['neosnippet.vim']})
+    "" auto complete
+    if has('nvim')
+      call dein#add('Shougo/deoplete.nvim', {'on_i': 1, 'lazy': 1})
+      call dein#add('ujihisa/neco-look', {'depends': ['deoplete.vim']})
+      call dein#add('zchee/deoplete-jedi', {'depends': ['deoplete.vim']})
+    elseif has('lua') && (( v:version == 703 && has ('patch885')) || (v:version >= 704))
+      call dein#add('Shougo/neocomplete.vim', {'on_i': 1, 'lazy': 1})
+      call dein#add('ujihisa/neco-look', {'depends': ['neocomplete.vim']})
+    endif
+    "" specific language supports
+    """ zen-coding
+    call dein#add ('mattn/emmet.vim', {'on_ft': ['ruby', 'html', 'css', 'markdown']})
+    """ ruby
+    call dein#add('tpope/vim-endwise', {'on_ft': ['ruby']})
+    call dein#add('NigoroJr/rsense', {'on_ft': ['ruby']})
+    call dein#add('supermomonga/neocomplete-rsense.vim', {'on_ft': ['ruby'], 'depends': ['neocomplete.vim']})
+    """ python
+    call dein#add('davidhalter/jedi-vim', {'on_ft': ['python']})
+    """ haskell
+    call dein#add('eagletmt/ghcmod-vim', {'on_ft': ['haskell']})
+    """ markdown
+    call dein#add('c01o/previm', {'on_ft': ['markdown']})
+    call dein#add('yaasita/ore_markdown', {
+          \ 'on_ft': ['markdown'],
+          \ 'build' : {
+          \     'windows' : 'bundle install --gemfile .\bin\Gemfile',
+          \     'mac' : 'bundle install --gemfile ./bin/Gemfile',
+          \     'unix' : 'bundle install --gemfile ./bin/Gemfile'
+          \    }
+          \ })
+    """ .tmux.conf
+    call dein#add('keith/tmux.vim', {'on_ft': ['tmux']})
+
+    call dein#save_cache()
+  endif
+
+  call dein#end()
+
+  " Installation check.
+  if dein#check_install()
+    call dein#install()
+  endif
+endif
+
 
 "" for several languages
-NeoBundleLazy 'keith/tmux.vim', {'autoload': {'filetypes': ['tmux']}}
-" ruby
-NeoBundleLazy 'tpope/vim-endwise', {'autoload': {'filetypes': ['ruby']}}
-NeoBundleLazy 'NigoroJr/rsense', {'autoload': {'filetypes': ['ruby']}}
-NeoBundleLazy 'supermomonga/neocomplete-rsense.vim', {'autoload': {'filetypes': ['ruby']}}
-" python
-NeoBundleLazy 'davidhalter/jedi-vim', {'autoload': {'filetypes': ['python']}}
-" haskell
-NeoBundleLazy 'eagletmt/ghcmod-vim', {'autoload': {'filetypes': ['haskell']}}
-" markdown
-NeoBundleLazy 'c01o/previm', {'autoload': {'filetypes': ['markdown']}}
-NeoBundleLazy 'yaasita/ore_markdown', {
-      \ 'autoload': {'filetypes': ['markdown']},
-      \ 'build' : {
-      \     'windows' : 'bundle install --gemfile .\bin\Gemfile',
-      \     'mac' : 'bundle install --gemfile ./bin/Gemfile',
-      \     'unix' : 'bundle install --gemfile ./bin/Gemfile'
-      \    },
-      \ }
 " others
-NeoBundle 'mattn/emmet-vim'
-
-call neobundle#end()
 
 " Required:
 filetype plugin indent on
-
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-NeoBundleCheck
 
 "###########
 if has("unix")
@@ -181,7 +220,7 @@ command! Haskell :QuickRun haskell
 nnoremap qh :<C-u>Haskell<CR>
 
 " help/documents
-nnoremap <C-h><C-h> :<C-u>help<Space>
+nnoremap <C-h><C-h> :<C-u>help 
 nnoremap <C-h><C-r> :<C-u>Ref refe 
 nnoremap <C-h><C-p> :<C-u>Ref pydoc 
 
@@ -213,7 +252,6 @@ nnoremap mm :<C-u>Memo<CR>
 command! -nargs=1 -complete=filetype Tmp edit ~/.vim_tmp/tmp.<args>
 command! -nargs=1 -complete=filetype Temp edit ~/.vim_tmp/tmp.<args>
 
-
 "###############################
 "###########検索設定############
 "###############################
@@ -234,25 +272,33 @@ endif
 " Use RSence to omnicompletion
 let g:rsenseUseOmniFunc = 1
 
-
 "###############################
-"##########その他設定###########
+"###########補完設定############
 "###############################
-
-"vim-indent-color
-let g:indent_guides_enable_on_vim_startup=1
-let g:indent_guides_start_level=2
-let g:indent_guides_auto_colors=0
-let g:indent_guides_color_change_percent = 10
-let g:indent_guides_guide_size = 1
-
+" Deoplete/Neocomplete
 if has('nvim')
-  let s:hooks = neobundle#get_hooks("deoplete.nvim")
-  function! s:hooks.on_source(bundle)
-    let g:deoplete#enable_at_startup = 1
-  endfunction
+  let g:acp_enableAtStartup = 0
+  let g:deoplete#enable_at_startup = 1
+  let g:deoplete#enable_smart_case = 1
+  let g:deoplete#sources#omni#input_patterns = {
+  \   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
+  \}
+
+  " use jedi(python code-complete plugin) in deoplete
+  " thanks to deoplete source plugin 'zchee/deoplete-jedi'
+  " the following configs are equal to plugin's default ones
+  "g:deoplete#sources#jedi#statement_length = 50
+  "g:deoplete#sources#jedi#enable_cache = 1
+  "g:deoplete#sources#jedi#show_docstring = 0
+  
+  " <TAB> completion.
+  inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+  inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
+  inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
+  inoremap <expr><C-y>  deoplete#mappings#close_popup()
+  inoremap <expr><C-e>  deoplete#mappings#cancel_popup()
 else
-  " Use neocomplete.vim
+  " use neocomplete
   let g:acp_enableAtStartup = 0
   let g:neocomplete#enable_at_startup = 1
   let g:neocomplete#enable_smart_case = 1
@@ -269,13 +315,30 @@ else
   endif
 
   let g:neocomplete#force_omni_input_patterns.python = '\h\w*\|[^. \t]\.\w*'
+
+  " <TAB> completion.
+  inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+  inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+  inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+  inoremap <expr><C-y>  neocomplete#close_popup()
+  inoremap <expr><C-e>  neocomplete#cancel_popup()
 endif
-" <TAB> completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplete#close_popup()
-inoremap <expr><C-e>  neocomplete#cancel_popup()
+
+" neosnippet
+"" use honza/vim-snippets from neosnippet
+let g:neosnippet#enable_snipmate_compatibility = 1
+let g:neosnippet#snippets_directory=s:dein_github . '/vim-snippets/snippets'
+
+"###############################
+"##########その他設定###########
+"###############################
+
+"vim-indent-color
+let g:indent_guides_enable_on_vim_startup=1
+let g:indent_guides_start_level=2
+let g:indent_guides_auto_colors=0
+let g:indent_guides_color_change_percent = 10
+let g:indent_guides_guide_size = 1
 
 " rubocop static code analyzer on save
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ruby'] }
