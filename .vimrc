@@ -37,11 +37,9 @@ if s:use_dein && v:version >= 704
   endif
   let &runtimepath = &runtimepath . "," . s:dein_repo_dir
 
-  " Begin plugin part
-  call dein#begin(s:dein_dir)
-
   " Check cache
-  if dein#load_cache()
+  if dein#load_state(s:dein_dir)
+    call dein#begin(s:dein_dir)
 
     """""""""""""""""""""""
     "" plugin management ""
@@ -54,13 +52,7 @@ if s:use_dein && v:version >= 704
 
     " editor functions
     "" core util
-    call dein#add('Shougo/vimproc', {
-          \ 'build': {
-          \     'windows': 'tools\\update-dll-mingw',
-          \     'cygwin': 'make -f make_cygwin.mak',
-          \     'mac': 'make -f make_mac.mak',
-          \     'linux': 'make',
-          \     'unix': 'gmake'}})
+    call dein#add('Shougo/vimproc', {'build': 'make'})
     "" input support
     call dein#add('fuenor/im_control.vim')
     call dein#add('jiangmiao/auto-pairs')
@@ -94,11 +86,12 @@ if s:use_dein && v:version >= 704
     endif
     "" specific language supports
     """ zen-coding
-    call dein#add ('mattn/emmet.vim', {'on_ft': ['ruby', 'html', 'css', 'markdown']})
+    call dein#add('mattn/emmet-vim', {'on_ft': ['ruby', 'html', 'css', 'markdown']})
     """ ruby
     call dein#add('tpope/vim-endwise', {'on_ft': ['ruby']})
     call dein#add('NigoroJr/rsense', {'on_ft': ['ruby']})
-    call dein#add('supermomonga/neocomplete-rsense.vim', {'on_ft': ['ruby'], 'depends': ['neocomplete.vim']})
+    " this plugin seems dead
+    "call dein#add('supermomonga/neocomplete-rsense.vim', {'on_ft': ['ruby'], 'depends': ['neocomplete.vim']}) 
     """ python
     call dein#add('davidhalter/jedi-vim', {'on_ft': ['python']})
     """ haskell
@@ -107,19 +100,15 @@ if s:use_dein && v:version >= 704
     call dein#add('c01o/previm', {'on_ft': ['markdown']})
     call dein#add('yaasita/ore_markdown', {
           \ 'on_ft': ['markdown'],
-          \ 'build' : {
-          \     'windows' : 'bundle install --gemfile .\bin\Gemfile',
-          \     'mac' : 'bundle install --gemfile ./bin/Gemfile',
-          \     'unix' : 'bundle install --gemfile ./bin/Gemfile'
-          \    }
+          \ 'build': 'bundle install --gemfile ./bin/Gemfile'
           \ })
     """ .tmux.conf
     call dein#add('keith/tmux.vim', {'on_ft': ['tmux']})
 
-    call dein#save_cache()
+    call dein#end()
+    call dein#save_state()
   endif
 
-  call dein#end()
 
   " Installation check.
   if dein#check_install()
@@ -127,39 +116,34 @@ if s:use_dein && v:version >= 704
   endif
 endif
 
-
-"" for several languages
-" others
-
-" Required:
 filetype plugin indent on
 
 "###########
 if has("unix")
-    "im_control.vim用 fcitx設定
-    "日本語入力モードの動作設定
-    let IM_CtrlMode = 6
-    "日本語入力モード切替を<C-j>で
-    inoremap <silent> <C-j> <C-r>=IMState('FixMode')<CR>
+  "im_control.vim用 fcitx設定
+  "日本語入力モードの動作設定
+  let IM_CtrlMode = 6
+  "日本語入力モード切替を<C-j>で
+  inoremap <silent> <C-j> <C-r>=IMState('FixMode')<CR>
 
-    "<ESC>押下後のIM切り替え開始までの反応が遅い場合はttimeoutlenを短く設定してみてください
-    set timeout timeoutlen=300 ttimeoutlen=10
-    set statusline+=%{IMStatus('[日本語固定]')}
+  "<ESC>押下後のIM切り替え開始までの反応が遅い場合はttimeoutlenを短く設定してみてください
+  set timeout timeoutlen=300 ttimeoutlen=10
+  set statusline+=%{IMStatus('[日本語固定]')}
 
-    " im_control.vimがない環境でもエラーを出さないためのダミー
-    function! IMStatus(...)
-        return '' 
-    endfunction
+  " im_control.vimがない環境でもエラーを出さないためのダミー
+  function! IMStatus(...)
+    return '' 
+  endfunction
 elseif has("win64")
-    if has('gui_running')
-        " 「日本語入力固定モード」の動作モード
-        let IM_CtrlMode = 4
-        " GVimで<C-^>が使える場合の「日本語入力固定モード」切替キー
-        inoremap <silent> <C-j> <C-^><C-r>=IMState('FixMode')<CR>
-    else
-        " 非GUIの場合(この例では「日本語入力固定モード」を無効化している)
-        let IM_CtrlMode = 0
-    endif
+  if has('gui_running')
+    " 「日本語入力固定モード」の動作モード
+    let IM_CtrlMode = 4
+    " GVimで<C-^>が使える場合の「日本語入力固定モード」切替キー
+    inoremap <silent> <C-j> <C-^><C-r>=IMState('FixMode')<CR>
+  else
+    " 非GUIの場合(この例では「日本語入力固定モード」を無効化している)
+    let IM_CtrlMode = 0
+  endif
 endif
 
 
@@ -192,11 +176,11 @@ set laststatus=2
 set wildmode=list,full
 
 augroup MyAutoCmd 
-    autocmd! 
-    autocmd BufNewFile,BufRead *.{md,mkd,mdn,mdwn,mkdn,mark*} set filetype=markdown  
-    autocmd BufNewFile,BufRead *.vimperatorrc set filetype=vimperator
-    autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#262626 ctermbg=gray
-    autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#3c3c3c ctermbg=darkgray
+  autocmd! 
+  autocmd BufNewFile,BufRead *.{md,mkd,mdn,mdwn,mkdn,mark*} set filetype=markdown  
+  autocmd BufNewFile,BufRead *.vimperatorrc set filetype=vimperator
+  autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#262626 ctermbg=gray
+  autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#3c3c3c ctermbg=darkgray
 augroup END
 
 " クリップボード連携
@@ -266,7 +250,7 @@ set wrapscan
 
 " migemo-search.vim有効化
 if executable('cmigemo')
-    cnoremap <expr><CR> migemosearch#replace_search_word()."\<CR>"
+  cnoremap <expr><CR> migemosearch#replace_search_word()."\<CR>"
 endif
 
 " Use RSence to omnicompletion
@@ -281,8 +265,8 @@ if has('nvim')
   let g:deoplete#enable_at_startup = 1
   let g:deoplete#enable_smart_case = 1
   let g:deoplete#sources#omni#input_patterns = {
-  \   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
-  \}
+        \   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
+        \}
 
   " use jedi(python code-complete plugin) in deoplete
   " thanks to deoplete source plugin 'zchee/deoplete-jedi'
@@ -290,7 +274,7 @@ if has('nvim')
   "g:deoplete#sources#jedi#statement_length = 50
   "g:deoplete#sources#jedi#enable_cache = 1
   "g:deoplete#sources#jedi#show_docstring = 0
-  
+
   " <TAB> completion.
   inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
   inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
@@ -303,8 +287,8 @@ else
   let g:neocomplete#enable_at_startup = 1
   let g:neocomplete#enable_smart_case = 1
   let g:neocomplete#sources#omni#input_patterns = {
-  \   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
-  \}
+        \   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
+        \}
 
   " use jedi(python code-complete plugin) in neocomplete
   autocmd FileType python setlocal omnifunc=jedi#completions
@@ -348,4 +332,3 @@ let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ruby'] }
 " https://github.com/tpope/vim-rails/issues/245
 let g:surround_{char2nr('-')} = "<% \r %>"
 let g:surround_{char2nr('=')} = "<%= \r %>"
-
