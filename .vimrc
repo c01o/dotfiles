@@ -165,15 +165,16 @@ set showcmd
 set showmode
 set number
 set backspace=indent,eol,start
-set encoding=utf-8
-set fencs=utf-8,shift-jis,euc-jp,latin1
 set ambw=double
 set list
 set listchars=tab:>-,trail:-,nbsp:%,extends:>,precedes:<
 set statusline=%F%m%r%h%w\%=%y\%{IMStatus('[JP]')}[%{&ff}]\[%{&fenc!=''?&fenc:&enc}]\[%l/%L]
 set laststatus=2
+
 ":edit等の補完
 set wildmode=list,full
+set encoding=utf-8
+set fencs=utf-8,shift-jis,euc-jp,latin1
 
 augroup MyAutoCmd 
   autocmd! 
@@ -184,7 +185,8 @@ augroup MyAutoCmd
 augroup END
 
 " クリップボード連携
-set clipboard=unnamedplus,autoselect
+set clipboard+=unnamedplus
+
 
 
 "###############################
@@ -260,7 +262,7 @@ let g:rsenseUseOmniFunc = 1
 "###########補完設定############
 "###############################
 " Deoplete/Neocomplete
-if has('nvim')
+if has('nvim') && has('python3')
   let g:acp_enableAtStartup = 0
   let g:deoplete#enable_at_startup = 1
   let g:deoplete#enable_smart_case = 1
