@@ -57,6 +57,7 @@ if s:use_dein && v:version >= 704
     call dein#add('fuenor/im_control.vim')
     call dein#add('jiangmiao/auto-pairs')
     call dein#add('tpope/vim-surround')
+    call dein#add('tpope/vim-repeat')
     call dein#add('tyru/caw.vim')
     "" looks
     call dein#add('nathanaelkane/vim-indent-guides')
