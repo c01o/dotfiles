@@ -87,7 +87,7 @@ if s:use_dein && v:version >= 704
     endif
     "" specific language supports
     """ zen-coding
-    call dein#add('mattn/emmet-vim', {'on_ft': ['ruby', 'html', 'css', 'markdown']})
+    call dein#add('mattn/emmet-vim', {'on_ft': ['ruby', 'html', 'css', 'markdown', 'eruby']})
     """ ruby
     call dein#add('tpope/vim-endwise', {'on_ft': ['ruby']})
     call dein#add('NigoroJr/rsense', {'on_ft': ['ruby']})
