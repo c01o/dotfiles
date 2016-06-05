@@ -124,6 +124,7 @@ if has("unix")
   "im_control.vim用 fcitx設定
   "日本語入力モードの動作設定
   let IM_CtrlMode = 6
+
   "日本語入力モード切替を<C-j>で
   inoremap <silent> <C-j> <C-r>=IMState('FixMode')<CR>
 

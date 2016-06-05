@@ -2,7 +2,6 @@
 *~
 .vim/bundle/
 .vim/netrwhist
-.vimperator/info/default/macros
-.vimperator/info/default/history-command
+.vimperator/info/default/*
 .DS_Store
 
