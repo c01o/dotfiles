@@ -105,6 +105,8 @@ if s:use_dein && v:version >= 704
           \ })
     """ .tmux.conf
     call dein#add('keith/tmux.vim', {'on_ft': ['tmux']})
+    """ coffee
+    call dein#add('kchmck/vim-coffee-script', {'on_ft': ['coffee']})
 
     call dein#end()
     call dein#save_state()
@@ -182,6 +184,7 @@ augroup MyAutoCmd
   autocmd! 
   autocmd BufNewFile,BufRead *.{md,mkd,mdn,mdwn,mkdn,mark*} set filetype=markdown  
   autocmd BufNewFile,BufRead *.vimperatorrc set filetype=vimperator
+  autocmd FileType coffee    setlocal sw=2 sts=2 ts=2 et
   autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#262626 ctermbg=gray
   autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#3c3c3c ctermbg=darkgray
 augroup END

@@ -9,3 +9,7 @@
 	excludefile = ~/.gitignore
 [help]
 	autocorrect = 1
+
+#Invoke as `ghq import starred motemen`
+[ghq "import"]
+starred = github-list-starred

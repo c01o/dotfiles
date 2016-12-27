@@ -1,7 +1,15 @@
-### enable zsh's man  ###
-export MANPATH=$HOME/Documents/man:
-path=($HOME/.cask/bin(N-/) $HOME/go/bin(N-/) $HOME/bin(N-/) $HOME/.cabal/bin(N-/) /opt/cabal/1.20/bin(N-/) /opt/ghc/7.8.4/bin(N-/) $HOME/.nodebrew/current/bin(N-/) $HOME/.rbenv/bin(N-/) $HOME/anaconda2/bin(N-/) /usr/local/heroku/bin(N-/) $path)
-fpath=(${HOME}/.zsh/zsh-completions/src(N-/) $HOME/.zsh/functions(N-/) $fpath)
+## zprof config
+## comment out this and the tail of .zshrc to use
+# zmodload zsh/zprof && zprof
 
-### use system-default sqlite3 prior to anaconda2's one or the others ###
-alias sqlite3="/usr/bin/sqlite3"
+#
+# Defines environment variables.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#
+
+# Ensure that a non-login, non-interactive shell has a defined environment.
+if [[ "$SHLVL" -eq 1 && ! -o LOGIN && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprofile"
+fi
