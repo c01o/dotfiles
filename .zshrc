@@ -14,6 +14,7 @@ fi
 
 ## basic settings ##
 export EDITOR=vim
+export TERM=screen-256color
 
 ## assign history search as <C-p>, <C-n> ##
 autoload history-search-end
