@@ -78,7 +78,7 @@ alias sqlite3="/usr/bin/sqlite3"
 [ -f ~/cool-peco/cool-peco ] && source ~/cool-peco/cool-peco
 
 ### fuck ###
-eval $(thefuck --alias)
+[[ -x `whence -p thefuck` ]] && eval $(thefuck --alias)
 
 ### ghq ###
 alias g='cd $(ghq root)/$(ghq list | peco)'
