@@ -94,7 +94,7 @@ if s:use_dein && v:version >= 704
     " this plugin seems dead
     "call dein#add('supermomonga/neocomplete-rsense.vim', {'on_ft': ['ruby'], 'depends': ['neocomplete.vim']}) 
     """ python
-    call dein#add('davidhalter/jedi-vim', {'on_ft': ['python']})
+    "call dein#add('davidhalter/jedi-vim', {'on_ft': ['python']})
     """ haskell
     call dein#add('eagletmt/ghcmod-vim', {'on_ft': ['haskell']})
     """ markdown
