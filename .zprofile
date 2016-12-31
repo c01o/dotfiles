@@ -51,7 +51,6 @@ path=(
   $HOME/go/bin(N-/)
   $HOME/.cabal/bin(N-/)
   /opt/cabal/1.20/bin(N-/)
-  $HOME/.anyenv/bin(N-/)
   $HOME/anaconda2/bin(N-/)
   $HOME/.nodebrew/current/bin(N-/)
   # indivisual programs
@@ -72,7 +71,15 @@ alias sqlite3="/usr/bin/sqlite3"
 [ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh
 
 ### anyenv ###
-[ -d $HOME/.anyenv ] && eval $(anyenv init -)
+if [ -d ${HOME}/.anyenv ] ; then
+    export PATH="$HOME/.anyenv/bin:$PATH"
+    eval "$(anyenv init -)"
+    for D in `find $HOME/.anyenv/envs -type d -d 1`
+    do
+        export PATH="$D/shims:$PATH"
+    done
+
+fi
 
 ### cool-peco ###
 [ -f ~/cool-peco/cool-peco ] && source ~/cool-peco/cool-peco
