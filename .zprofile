@@ -51,7 +51,7 @@ path=(
   $HOME/go/bin(N-/)
   $HOME/.cabal/bin(N-/)
   /opt/cabal/1.20/bin(N-/)
-  $HOME/.rbenv/bin(N-/)
+  $HOME/.anyenv/bin(N-/)
   $HOME/anaconda2/bin(N-/)
   $HOME/.nodebrew/current/bin(N-/)
   # indivisual programs
@@ -71,8 +71,8 @@ alias sqlite3="/usr/bin/sqlite3"
 ### Travis CI gem ###
 [ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh
 
-### rbenv ###
-[[ -x `whence -p rbenv` ]] && eval "$(rbenv init -)"
+### anyenv ###
+[ -d $HOME/.anyenv ] && eval $(anyenv init -)
 
 ### cool-peco ###
 [ -f ~/cool-peco/cool-peco ] && source ~/cool-peco/cool-peco
