@@ -1,3 +1,6 @@
+set encoding=utf-8
+scriptencoding utf-8
+
 "###############################
 "#########プラグイン管理########
 "###############################
@@ -132,7 +135,7 @@ if has("unix")
 
   " im_control.vimがない環境でもエラーを出さないためのダミー
   function! IMStatus(...)
-    return '' 
+    return ''
   endfunction
 elseif has("win64")
   if has('gui_running')
@@ -150,10 +153,10 @@ endif
 "###############################
 "###########基本設定############
 "###############################
-
-" vimの外観設定
-set encoding=utf-8
 set fencs=utf-8,shift-jis,euc-jp,latin1
+
+"###############################
+" vimの外観設定
 syntax enable
 colorscheme slate
 set number
@@ -176,6 +179,7 @@ set display=lastline
 ":edit等の補完
 set wildmode=list,full
 
+"###############################
 " 編集設定
 set clipboard+=unnamedplus
 
@@ -219,9 +223,9 @@ command! Haskell :QuickRun haskell
 nnoremap qh :<C-u>Haskell<CR>
 
 " help/documents
-nnoremap <C-h><C-h> :<C-u>help 
-nnoremap <C-h><C-r> :<C-u>Ref refe 
-nnoremap <C-h><C-p> :<C-u>Ref pydoc 
+nnoremap <C-h><C-h> :<C-u>help<Space>
+nnoremap <C-h><C-r> :<C-u>Ref refe<Space>
+nnoremap <C-h><C-p> :<C-u>Ref pydoc<Space>
 
 
 " basic commands remapping
@@ -299,7 +303,7 @@ else
         \}
 
   " use jedi(python code-complete plugin) in neocomplete
-  autocmd FileType python setlocal omnifunc=jedi#completions
+  autocmd MyAutoCmd FileType python setlocal omnifunc=jedi#completions
   let g:jedi#auto_vim_configuration = 0
 
   if !exists('g:neocomplete#force_omni_input_patterns')
