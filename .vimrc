@@ -1,3 +1,6 @@
+set encoding=utf-8
+scriptencoding utf-8
+
 "###############################
 "#########プラグイン管理########
 "###############################
@@ -81,9 +84,11 @@ if s:use_dein && v:version >= 704
       call dein#add('Shougo/deoplete.nvim', {'on_i': 1, 'lazy': 1})
       call dein#add('ujihisa/neco-look', {'depends': ['deoplete.vim']})
       call dein#add('zchee/deoplete-jedi', {'depends': ['deoplete.vim']})
+      call dein#add('osyo-manga/vim-monster', {'on_ft': ['ruby'], 'depends': ['deoplete.vim']})
     elseif has('lua') && (( v:version == 703 && has ('patch885')) || (v:version >= 704))
       call dein#add('Shougo/neocomplete.vim', {'on_i': 1, 'lazy': 1})
       call dein#add('ujihisa/neco-look', {'depends': ['neocomplete.vim']})
+      call dein#add('osyo-manga/vim-monster', {'on_ft': ['ruby'], 'depends': ['neocomplete.vim']})
     endif
     "" specific language supports
     """ zen-coding
@@ -91,12 +96,6 @@ if s:use_dein && v:version >= 704
     """ ruby
     call dein#add('tpope/vim-endwise', {'on_ft': ['ruby']})
     call dein#add('NigoroJr/rsense', {'on_ft': ['ruby']})
-    " this plugin seems dead
-    "call dein#add('supermomonga/neocomplete-rsense.vim', {'on_ft': ['ruby'], 'depends': ['neocomplete.vim']}) 
-    """ python
-    "call dein#add('davidhalter/jedi-vim', {'on_ft': ['python']})
-    """ haskell
-    call dein#add('eagletmt/ghcmod-vim', {'on_ft': ['haskell']})
     """ markdown
     call dein#add('c01o/previm', {'on_ft': ['markdown']})
     call dein#add('yaasita/ore_markdown', {
@@ -136,7 +135,7 @@ if has("unix")
 
   " im_control.vimがない環境でもエラーを出さないためのダミー
   function! IMStatus(...)
-    return '' 
+    return ''
   endfunction
 elseif has("win64")
   if has('gui_running')
@@ -154,44 +153,57 @@ endif
 "###############################
 "###########基本設定############
 "###############################
+set fencs=utf-8,shift-jis,euc-jp,latin1
 
+"###############################
 " vimの外観設定
 syntax enable
 colorscheme slate
+set number
+set ambiwidth=double "日本語文字が重なるの防止
+
+"" tab文字他の表示設定
+set list
+set listchars=tab:>-,trail:-,nbsp:%,extends:>,precedes:<
+
+"" statusline
+set showcmd
+set showmode
+set statusline=%F%m%r%h%w\%=%y\%{IMStatus('[JP]')}[%{&ff}]\[%{&fenc!=''?&fenc:&enc}]\[%l/%L]
+set laststatus=2
+
+"" 長い行の表示
+set wrap
+set display=lastline
+
+":edit等の補完
+set wildmode=list,full
+
+"###############################
+" 編集設定
+set clipboard+=unnamedplus
+
+"" indent
 set autoindent
-"#tabwidth################
+set smartindent
+
+"" tab settings
 set expandtab
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2
-"#########################
-set showcmd
-set showmode
-set number
+
+"" behavior of backspace key
 set backspace=indent,eol,start
-set ambw=double
-set list
-set listchars=tab:>-,trail:-,nbsp:%,extends:>,precedes:<
-set statusline=%F%m%r%h%w\%=%y\%{IMStatus('[JP]')}[%{&ff}]\[%{&fenc!=''?&fenc:&enc}]\[%l/%L]
-set laststatus=2
 
-":edit等の補完
-set wildmode=list,full
-set encoding=utf-8
-set fencs=utf-8,shift-jis,euc-jp,latin1
-
-augroup MyAutoCmd 
-  autocmd! 
-  autocmd BufNewFile,BufRead *.{md,mkd,mdn,mdwn,mkdn,mark*} set filetype=markdown  
+augroup MyAutoCmd
+  autocmd!
+  autocmd BufNewFile,BufRead *.{md,mkd,mdn,mdwn,mkdn,mark*} set filetype=markdown
   autocmd BufNewFile,BufRead *.vimperatorrc set filetype=vimperator
   autocmd FileType coffee    setlocal sw=2 sts=2 ts=2 et
   autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#262626 ctermbg=gray
   autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#3c3c3c ctermbg=darkgray
 augroup END
-
-" クリップボード連携
-set clipboard+=unnamedplus
-
 
 
 "###############################
@@ -211,9 +223,9 @@ command! Haskell :QuickRun haskell
 nnoremap qh :<C-u>Haskell<CR>
 
 " help/documents
-nnoremap <C-h><C-h> :<C-u>help 
-nnoremap <C-h><C-r> :<C-u>Ref refe 
-nnoremap <C-h><C-p> :<C-u>Ref pydoc 
+nnoremap <C-h><C-h> :<C-u>help<Space>
+nnoremap <C-h><C-r> :<C-u>Ref refe<Space>
+nnoremap <C-h><C-p> :<C-u>Ref pydoc<Space>
 
 
 " basic commands remapping
@@ -275,13 +287,6 @@ if has('nvim') && has('python3')
         \   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
         \}
 
-  " use jedi(python code-complete plugin) in deoplete
-  " thanks to deoplete source plugin 'zchee/deoplete-jedi'
-  " the following configs are equal to plugin's default ones
-  "g:deoplete#sources#jedi#statement_length = 50
-  "g:deoplete#sources#jedi#enable_cache = 1
-  "g:deoplete#sources#jedi#show_docstring = 0
-
   " <TAB> completion.
   inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
   inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
@@ -298,7 +303,7 @@ else
         \}
 
   " use jedi(python code-complete plugin) in neocomplete
-  autocmd FileType python setlocal omnifunc=jedi#completions
+  autocmd MyAutoCmd FileType python setlocal omnifunc=jedi#completions
   let g:jedi#auto_vim_configuration = 0
 
   if !exists('g:neocomplete#force_omni_input_patterns')
