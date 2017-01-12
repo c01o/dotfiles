@@ -58,6 +58,7 @@ path=(
   /usr/local/heroku/bin(N-/)
   # user's binary
   /usr/local/{bin,sbin}
+  /{bin,sbin}(N-/)
   $HOME/bin(N-/)
   $path
 )
