@@ -60,6 +60,7 @@ path=(
   /usr/local/{bin,sbin}
   /{bin,sbin}(N-/)
   $HOME/bin(N-/)
+  $HOME/bin/pycharm/bin(N-/)
   $path
 )
 
