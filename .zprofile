@@ -57,7 +57,8 @@ path=(
   /opt/ghc/7.8.4/bin(N-/)
   /usr/local/heroku/bin(N-/)
   # user's binary
-  /usr/local/{bin,sbin}
+  /usr/local/{bin,sbin}}(N-/)
+  /usr/{bin,sbin}(N-/)
   /{bin,sbin}(N-/)
   $HOME/bin(N-/)
   $HOME/bin/pycharm/bin(N-/)
