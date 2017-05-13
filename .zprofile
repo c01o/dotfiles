@@ -41,6 +41,12 @@ typeset -gU cdpath fpath mailpath path
 #   $cdpath
 # )
 
+# set fpath
+fpath=(
+  ~/.zsh/completion(N-/)
+  $fpath
+)
+
 # Set GOPATH
 export GOPATH=$HOME/go
 
