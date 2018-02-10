@@ -8,7 +8,7 @@ scriptencoding utf-8
 let s:use_dein = 1
 
 " vi compatibility
-if !&compatible
+if &compatible
   set nocompatible
 endif
 
@@ -21,7 +21,7 @@ if has("vim_starting")
 endif
 
 " dein
-let s:dein_enabled  = 0
+let s:dein_enabled = 0
 if s:use_dein && v:version >= 704
   let s:dein_enabled = 1
 
@@ -82,9 +82,9 @@ if s:use_dein && v:version >= 704
     "" auto complete
     if has('nvim')
       call dein#add('Shougo/deoplete.nvim', {'on_i': 1, 'lazy': 1})
-      call dein#add('ujihisa/neco-look', {'depends': ['deoplete.vim']})
-      call dein#add('zchee/deoplete-jedi', {'depends': ['deoplete.vim']})
-      call dein#add('osyo-manga/vim-monster', {'on_ft': ['ruby'], 'depends': ['deoplete.vim']})
+      call dein#add('ujihisa/neco-look', {'depends': ['deoplete.nvim']})
+      call dein#add('zchee/deoplete-jedi', {'depends': ['deoplete.nvim']})
+      call dein#add('osyo-manga/vim-monster', {'on_ft': ['ruby'], 'depends': ['deoplete.nvim']})
     elseif has('lua') && (( v:version == 703 && has ('patch885')) || (v:version >= 704))
       call dein#add('Shougo/neocomplete.vim', {'on_i': 1, 'lazy': 1})
       call dein#add('ujihisa/neco-look', {'depends': ['neocomplete.vim']})
