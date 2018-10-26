@@ -66,6 +66,7 @@ if s:use_dein && v:version >= 704
     call dein#add('nathanaelkane/vim-indent-guides')
     "" search
     call dein#add('rhysd/migemo-search.vim')
+    call dein#add('mileszs/ack.vim')
 
     " programming support
     "" test run
@@ -268,12 +269,19 @@ nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>
 set wrapscan
 
 " migemo-search.vim有効化
-if executable('cmigemo')
-  cnoremap <expr><CR> migemosearch#replace_search_word()."\<CR>"
+if has('nvim')
+  if executable('cmigemo')
+    cnoremap <expr><CR> migemosearch#replace_search_word()."\<CR>"
+  endif
 endif
 
 " Use RSence to omnicompletion
 let g:rsenseUseOmniFunc = 1
+
+" ag
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
 
 "###############################
 "###########補完設定############
