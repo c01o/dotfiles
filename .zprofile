@@ -74,6 +74,9 @@ path=(
 # use system-default sqlite3 prior to anaconda2's one or the others ###
 alias sqlite3="/usr/bin/sqlite3"
 
+# shorthand for bundle exec
+alias be="bundle exec"
+
 ## indivisual settings
 
 ### Travis CI gem ###
