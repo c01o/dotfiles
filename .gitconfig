@@ -10,10 +10,6 @@
 [help]
 	autocorrect = 1
 
-#Invoke as `ghq import starred motemen`
-[ghq "import"]
-starred = github-list-starred
-
 # github access token for ghi: should be gitignored
 [include]
   path = .ghitoken

@@ -103,6 +103,24 @@ fi
 alias g='cd $(ghq root)/$(ghq list | peco)'
 alias gh='hub browse $(ghq list | peco | cut -d "/" -f 2,3)'
 
+# From: https://qiita.com/ngtk/items/6bdb01c0a28c1f32d840
+function ghq-import-starred() {
+	if [ -n "$1" ]; then
+		user_id=$1
+	elif [ -n "$(git config --get github.user)" ]; then
+		user_id=$(git config --get github.user)
+	else
+		cat << EOS
+usage: ghq-import-start [<user_id>]
+
+Specify user_id or set github.user in gitconfig.
+EOS
+	fi
+
+	urls=$(curl -s https://api.github.com/users/$user_id/starred\?per_page\=1000 | jq '.[] | .clone_url' | awk '{gsub("\"", "");print $0;}')
+	echo $urls | ghq get
+}
+
 ### OPAM ###
 . ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
