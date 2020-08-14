@@ -105,11 +105,11 @@ alias gb='hub browse $(ghq list | peco | cut -d "/" -f 2,3)'
 
 function ghq-import-mine() {
 	urls="$(gh api 'user/repos?per_page=10000'| jq -r '.[]|.clone_url')"
-	echo $urls | ghq get
+	echo $urls | ghq get -u
 }
 function ghq-import-starred() {
 	urls="$(gh api 'user/starred?per_page=10000' | jq -r '.[]|.clone_url')"
-	echo $urls | ghq get
+	echo $urls | ghq get -u
 }
 
 
